@@ -108,6 +108,6 @@ help or help <command> Ex:
 * Amenity
 * Place
 * Review
-Authors
+#Authors
 * Charlespaul Masika Wabomba - <charlespaulwabomba@gmail.com>
 *
