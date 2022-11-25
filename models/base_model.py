@@ -7,7 +7,7 @@ import uuid
 from datetime import datetime
 import models
 
-class Basemodel:
+class BaseModel:
     """
     base class for other classes used in the console
     """
@@ -29,13 +29,13 @@ class Basemodel:
                     setattr(self, key, val)
     def __str__(self):
         """
-        returning a string representation of the basemodel
+        returning a string representation of the BaseModel
         """
         return("[{}], ({}), {}".format(self.__class__.__name__, self.id, self.__dict__))
     
     def __repr__(self):
         """
-        returning a string representation of the basemodel
+        returning a string representation of the BaseModel
         """
         return("[{}], ({}), {}".format(self.__class__.__name__, self.id, self.__dict__))
     def save(self):
@@ -47,7 +47,7 @@ class Basemodel:
 
     def to_dict(self):
         """
-        returns dictionary representation of the basemodel class
+         returns a dictionary containing all keys/values of __dict__ of the instance:
         """
         dict_copy = dict(self.__dict__)
         dict_copy['__class__'] = self.__class__.__name__
@@ -55,7 +55,3 @@ class Basemodel:
         dict_copy['created_at'] = self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
 
         return dict_copy
-
-
-
-
