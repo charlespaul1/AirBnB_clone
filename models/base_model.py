@@ -3,9 +3,11 @@
 """
 defining the basemodel of the console,  it has common attributes for other classes
 """
+import sys
 import uuid
 from datetime import datetime
 import models
+
 
 class BaseModel:
     """
