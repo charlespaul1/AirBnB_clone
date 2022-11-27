@@ -23,7 +23,7 @@ class FileStorage:
         sets in __objects the obj with key <obj class name>.id 
         obj : An instance object.
         """
-        key =  (obj.__class__.__name__) + "." + str(obj.id) #name.id in string form
+        key =  str(obj.__class__.__name__) + "." + str(obj.id) 
         value_dict = obj
         FileStorage.__objects[key] = value_dict
     def save(self):
