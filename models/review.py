@@ -1,5 +1,3 @@
-
-
 #!/usr/bin/python3
 """ Class review that inherits from base model"""
 

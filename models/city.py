@@ -1,5 +1,3 @@
-
-
 #!/usr/bin/python3
 """ Class city that inherits from base model"""
 

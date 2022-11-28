@@ -29,7 +29,7 @@ class FileStorage:
         value_dict = obj
         FileStorage.__objects[key] = value_dict
 
-    def save(self):
+    def save(sef):
         '''
             Serializes __objects attribute to JSON file.
         '''
