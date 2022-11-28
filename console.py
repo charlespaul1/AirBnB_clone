@@ -15,7 +15,7 @@ from models.amenity import Amenity
 from models.review import Review
 
 
-class HbnbCommand(cmd.Cmd):
+class HBNBCommand(cmd.Cmd):
     '''
         Contains the entry point of the command interpreter.
     '''
@@ -221,4 +221,4 @@ if __name__ == "__main__":
     '''
         Entry point for the loop.
     '''
-    HbnbCommand().cmdloop()
+    HBNBCommand().cmdloop()
