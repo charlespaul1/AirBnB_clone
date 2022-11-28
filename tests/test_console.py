@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 ''' Test suite for the console'''
 
-mport os
+import os
 import sys
 import models
 import unittest
 from io import StringIO
-from console import HbnbCommand
+from console import HBNBCommand
 from unittest.mock import create_autospec
 
 
@@ -22,9 +22,7 @@ class test_console(unittest.TestCase):
         ''''''
         sys.stdout = self.backup
 
-    def create(self):
-        ''' create an instance of the HBNBCommand class'''
-        return HbnbCommand()
+        return HBNBCommand()
 
     def test_quit(self):
         ''' Test quit exists'''
