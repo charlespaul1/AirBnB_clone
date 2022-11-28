@@ -1,55 +1,62 @@
 #!/usr/bin/python3
 '''
-    Define class FileStorage
+    This module defines the BaseModel class
 '''
-import json
+import uuid
+from datetime import datetime
 import models
 
 
-class FileStorage:
+class BaseModel:
     '''
-        Serializes instances to JSON file & deserializes to JSON file.
+        Base class for other classes to be used for the duration.
     '''
-    __file_path = "file.json"
-    __objects = {}
+    def __init__(self, *args, **kwargs):
+        '''
+            Initialize public instance attributes.
+        '''
+        if (len(kwargs) == 0):
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
+            models.storage.new(self)
+        else:
+            kwargs["created_at"] = datetime.strptime(kwargs["created_at"],
+                                                     "%Y-%m-%dT%H:%M:%S.%f")
+            kwargs["updated_at"] = datetime.strptime(kwargs["updated_at"],
+                                                     "%Y-%m-%dT%H:%M:%S.%f")
+            for key, val in kwargs.items():
+                if "__class__" not in key:
+                    setattr(self, key, val)
 
-    def all(self):
+    def __str__(self):
         '''
-            Return the dictionary
+            Return string representation of BaseModel class
         '''
-        return self.__objects
+        return ("[{}] ({}) {}".format(self.__class__.__name__,
+                                      self.id, self.__dict__))
 
-    def new(self, obj):
+    def __repr__(self):
         '''
-            Set in __objects the obj with key <obj class name>.id
-            Aguments:
-                obj : An instance object.
+            Return string representation of BaseModel class
         '''
-        key = str(obj.__class__.__name__) + "." + str(obj.id)
-        value_dict = obj
-        FileStorage.__objects[key] = value_dict
+        return ("[{}] ({}) {}".format(self.__class__.__name__,
+                                      self.id, self.__dict__))
 
-    def save(sef):
+    def save(self):
         '''
-            Serializes __objects attribute to JSON file.
+            Update the updated_at attribute with new.
         '''
-        objects_dict = {}
-        for key, val in FileStorage.__objects.items():
-            objects_dict[key] = val.to_dict()
+        self.updated_at = datetime.now()
+        models.storage.save()
 
-        with open(FileStorage.__file_path, mode='w', encoding="UTF8") as fd:
-            json.dump(objects_dict, fd)
+    def to_dict(self):
+        '''
+            Return dictionary representation of BaseModel class.
+        '''
+        cp_dct = dict(self.__dict__)
+        cp_dct['__class__'] = self.__class__.__name__
+        cp_dct['updated_at'] = self.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
+        cp_dct['created_at'] = self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
 
-    def reload(self):
-        '''
-            Deserializes the JSON file to __objects.
-        '''
-        try:
-            with open(FileStorage.__file_path, encoding="UTF8") as fd:
-                FileStorage.__objects = json.load(fd)
-            for key, val in FileStorage.__objects.items():
-                class_name = val["__class__"]
-                class_name = models.classes[class_name]
-                FileStorage.__objects[key] = class_name(**val)
-        except FileNotFoundError:
-            pass
+        return (cp_dct)
